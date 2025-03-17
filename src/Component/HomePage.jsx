@@ -3,20 +3,8 @@ import '../Style/HomePage.css'
 import { Cpu, Network, Infinity } from 'lucide-react';
 import { Tooltip } from "react-tooltip";
 
-const HomePage = ({setMode, getMode, getisGameStarted, setIsGameStarted}) => {
+const HomePage = ({setPage, setMode, getMode, getisGameStarted, setIsGameStarted}) => {
 
-  useEffect(()=>{
-    console.log("the mode is changed, Mode : "+getMode());
-    if (getMode()==0) {
-      
-    }else if(getMode()==1) {
-
-    }else if (getMode()==2) {
-      
-    }else if (getMode()==3) {
-
-    }
-  },[getMode()]);
   return (
     <div className="w-full h-dvh overflow-hidden">
         
@@ -31,12 +19,13 @@ const HomePage = ({setMode, getMode, getisGameStarted, setIsGameStarted}) => {
       <div className="w-full h-20/100 flex-2 flex flex-col items-center" >
           <h2 className="text-xl">{(getMode()==1)?"Play With Computer.":(getMode()==2)?"Play With Friends.":(getMode()==3)?"Play infinitely with friends.":"Choose A Mode To Start."}</h2>
           <br/>
-          <button onClick={()=>{(getMode()!==0)?setIsGameStarted(true):alert("please choose a mode before starting the game");}} className={`transition-all duration-300 w-1/2 h-1/2 rounded-xl max-w-60 text-4xl ${(getMode()==0)?"cursor-not-allowed disabled bg-black text-white":"bg-green-500 text-white"}`}>Play</button>
+          <button onClick={()=>{(getMode()!==0)?setPage(getMode()):alert("please choose a mode before starting the game");}} className={`transition-all duration-300 w-1/2 h-1/2 rounded-xl max-w-60 text-4xl ${(getMode()==0)?"cursor-not-allowed disabled bg-black text-white":"bg-green-500 text-white"}`}>Play</button>
       </div>
       <div className="w-1 h-10/100 flex-1">
 
       </div>
       <Tooltip id='tooltip' effect='solid' place='bottom' type='dark' />
+      
     </div>
 
 

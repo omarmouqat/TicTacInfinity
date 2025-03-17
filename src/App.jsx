@@ -10,10 +10,15 @@ import GameInfinety from './Component/GameInfinety'
 function App() {
   const [mode ,setMode] = useState(0);
   const [isGameStarted, setIsGameStarted] = useState(false);
+  const [page, setPage] = useState(0);
+
   const getMode = ()=>{
     return mode;
   };
   const getisGameStarted = ()=>{
+    return isGameStarted;
+  }
+  const getPage = ()=>{
     return isGameStarted;
   }
 
@@ -22,26 +27,24 @@ function App() {
     if (modeRef.current) {
       modeRef.current.value = mode; // Set the value only when ref is attached
     }
-    console.log('Mode:', mode);
-  }, [mode]);
-  if (isGameStarted) {
-    if (mode == 1) {
-      return (
-        <GameVsAi/>
-      );
-    }else if (mode == 2) {
-      return (
-        <GameVsFriends/>
-      );
-    }else if (mode == 3) {
-      return (
-        <GameInfinety/>
-      );
-    }
+    //setMode(0);
+  }, [page]);
 
+  if (page == 1) {
+    return (
+      <GameVsAi setPage = {setPage}/>
+    );
+  }else if (page == 2) {
+    return (
+      <GameVsFriends setPage = {setPage}/>
+    );
+  }else if (page == 3) {
+    return (
+      <GameInfinety setPage = {setPage}/>
+    );
   }else{
     return(
-      <HomePage setMode={setMode} getMode={getMode} getisGameStarted ={getisGameStarted} setIsGameStarted = {setIsGameStarted} />
+      <HomePage setMode={setMode} setPage = {setPage} getMode={getMode} getisGameStarted ={getisGameStarted} setIsGameStarted = {setIsGameStarted} />
     );
   }
 }

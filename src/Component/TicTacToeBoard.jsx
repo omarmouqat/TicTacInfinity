@@ -3,18 +3,56 @@ import '../Style/HomePage.css'
 import { Cpu, Network, Infinity } from 'lucide-react';
 import { Tooltip } from "react-tooltip";
 
-const TicTacToeBoard = ({getMode, getCurrentPlayer, aiNextMove}) => {
+const TicTacToeBoard = ({getMode, aiNextMove}) => {
     const [boardMapping, setBoardMapping] = useState(["", "", "", "", "", "", "", "", ""]);
     const [score, setScore] = useState([0, 0, 0]);
     const [currentPlayer, setCurrentPlayer] = useState(-1);
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-      }
+    const [boardFirstMoves, setBoardFirstMoves] = useState([]);
+    const resetColors = ()=>{
+        for (let index = 0; index < 9; index++) {
+            document.getElementById(""+index).style.backgroundColor = "white";
+            document.getElementById("" + index).style.color = "black";
+        }
+    };
     useEffect(()=>{
-        console.log(score);
-    }, [score]);
-    useEffect(() => {
+        if (getMode()==3) {
+            if(boardFirstMoves.length>4){
+                document.getElementById(""+boardFirstMoves[0]).style.backgroundColor = "red";
+            }
+            if (boardFirstMoves.length>5) {
+                const newboard = [...boardMapping];
+                newboard[boardFirstMoves[0]] = "";
+                setBoardMapping(newboard);
+                //deleting the first element from the list
+                document.getElementById(""+boardFirstMoves[0]).style.backgroundColor = "white";
+                const newBoardFirstMoves = [...boardFirstMoves];
+                newBoardFirstMoves.shift();
+                setBoardFirstMoves(newBoardFirstMoves);
+            }
+        }
+    }, [boardFirstMoves]);
+
+    useEffect(()=>{
+        console.log("the current player is : "+currentPlayer);
+        if (getMode()===1) {
+            if (currentPlayer===1) {
+                if (checkWin().length===0) {
+                    const newboard = [...boardMapping];
+                    let aiBestMove = aiNextMove(boardMapping);
+                    console.log("Ai Best Move is : "+aiBestMove);
+                    console.log(newboard);
+                    newboard[ parseInt(aiBestMove)] = "X";
+                    console.log("ai move with board mapping : ");
+                    setBoardMapping(newboard);
+                    console.log(boardMapping);
+                    setCurrentPlayer(currentPlayer*-1);
+                }
+                
+            }
+        }
         
+    }, [currentPlayer]);
+    useEffect(() => {
         const winner = checkWin();
         const newScore = [...score];
         if (winner.length === 1){
@@ -22,10 +60,12 @@ const TicTacToeBoard = ({getMode, getCurrentPlayer, aiNextMove}) => {
             setScore(newScore);
             sleep(3000);
             setBoardMapping(["", "", "", "", "", "", "", "", ""]);
+            resetColors();
         }else if (winner.length > 0) {
             winner.forEach(index => {
                 document.getElementById("" + index).style.color = "#00c951";
             });
+
             if (currentPlayer==-1) {
                 newScore[0]++;
                 setScore(newScore);
@@ -33,25 +73,39 @@ const TicTacToeBoard = ({getMode, getCurrentPlayer, aiNextMove}) => {
                 newScore[2]++;
                 setScore(newScore);
             }
-            sleep(3000);
+            setTimeout(() => {
+                console.log("Delayed for 1 second.");
+              }, "1000");
+            resetColors();
+            setBoardFirstMoves([]);
             setBoardMapping(["", "", "", "", "", "", "", "", ""]);
-            
+            resetColors();
         }
-        setCurrentPlayer(currentPlayer * -1);
+        
     }, [boardMapping]);
 
     const updateBoardMap = (id)=>{
         const newboard = [...boardMapping];
         if (boardMapping[id]==="") {
             if (currentPlayer==1) {
-                newboard[id] = "X";
-                setBoardMapping(newboard);
+                if(getMode()!==1){
+                    newboard[id] = "X";
+                    setBoardMapping(newboard);
+                }
+                
             }else if (currentPlayer==-1) {
                 newboard[id] = "O";
                 setBoardMapping(newboard);
             }
+            const newBoardFirstMoves = [...boardFirstMoves];
+            newBoardFirstMoves.push(id);
+            setBoardFirstMoves(newBoardFirstMoves);
+            setCurrentPlayer(currentPlayer * -1);
             
+        }else{
+            console.log("it filled");
         }
+        
         
     };
     const checkWin = () => {
@@ -65,6 +119,7 @@ const TicTacToeBoard = ({getMode, getCurrentPlayer, aiNextMove}) => {
             const [a, b, c] = line;
             if (boardMapping[a] && boardMapping[a] === boardMapping[b] && boardMapping[a] === boardMapping[c]) {
                 console.log("it's a win!", line);
+                setCurrentPlayer(-1);
 
                 return line;  // Return winning indices
             }
@@ -77,6 +132,7 @@ const TicTacToeBoard = ({getMode, getCurrentPlayer, aiNextMove}) => {
             }
         }
         if (isFull) {
+            setCurrentPlayer(-1);
             return [0];
         }
         return [];  // No win
