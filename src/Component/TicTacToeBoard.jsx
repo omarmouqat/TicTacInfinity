@@ -58,7 +58,6 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
         if (winner.length === 1){
             newScore[1]+=1;
             setScore(newScore);
-            sleep(3000);
             setBoardMapping(["", "", "", "", "", "", "", "", ""]);
             resetColors();
         }else if (winner.length > 0) {
