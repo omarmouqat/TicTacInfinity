@@ -3,15 +3,17 @@ import '../Style/HomePage.css'
 import { Cpu, Network, Infinity } from 'lucide-react';
 import { Tooltip } from "react-tooltip";
 import TicTacToeBoard from './TicTacToeBoard';
+import { CircleArrowLeft } from 'lucide-react';
+
 const GameInfinety = ({setPage}) => {
   const getMode = ()=>{
     return 3;
   };
   return (
     <>
-      <h1>Game Infinity</h1>
+      <button className='absolute top-2 left-2 size-10/100 stroke-[0.1]'  onClick={()=>{setPage(0)}}><CircleArrowLeft className='size-1/1 stroke-[1] min-w-13' /></button>
       <TicTacToeBoard getMode={getMode}/>
-      <button onClick={()=>{setPage(0)}}>return</button>
+
     </>
     
   );

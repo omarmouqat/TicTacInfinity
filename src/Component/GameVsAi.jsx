@@ -1,4 +1,5 @@
 import React from 'react';
+import { CircleArrowLeft } from 'lucide-react';
 import TicTacToeBoard from './TicTacToeBoard';
 const TicTacToeAI = ({setPage}) => {
   const getBestMove = (board, player) => {
@@ -45,8 +46,9 @@ const TicTacToeAI = ({setPage}) => {
   };
   return (
     <>
+      <button className='absolute top-2 left-2 size-10/100 stroke-[0.1]'  onClick={()=>{setPage(0)}}><CircleArrowLeft className='size-1/1 stroke-[1] min-w-13' /></button>
       <TicTacToeBoard getMode={getMode} aiNextMove={getBestMove}/>
-      <button onClick={()=>{setPage(0)}}>return</button>
+      
     </>
   ); // No UI needed, just logic
 };

@@ -139,40 +139,41 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
     
 
   return (
-    <>
-    <div className='size-100 grid grid-cols-3 grid-rows-3 gap-1 font-thin bg-black'>
-        <div onClick={()=>{updateBoardMap(0);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="0">
-            {boardMapping[0]}
+    <div className='flex flex-col justify-center items-center'>
+        <h1 className='text-4xl my-10'>Player 1</h1>
+        <div className='size-100 grid grid-cols-3 grid-rows-3 gap-1 font-thin bg-black'>
+            <div onClick={()=>{updateBoardMap(0);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="0">
+                {boardMapping[0]}
+            </div>
+            <div onClick={()=>{updateBoardMap(1);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="1">
+                {boardMapping[1]}        
+            </div>
+            <div onClick={()=>{updateBoardMap(2);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="2">
+                {boardMapping[2]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(3);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="3">
+                {boardMapping[3]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(4);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="4">
+                {boardMapping[4]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(5);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="5">
+                {boardMapping[5]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(6);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="6">
+                {boardMapping[6]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(7);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="7">
+                {boardMapping[7]} 
+            </div>
+            <div onClick={()=>{updateBoardMap(8);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="8">
+                {boardMapping[8]} 
+            </div>
         </div>
-        <div onClick={()=>{updateBoardMap(1);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="1">
-            {boardMapping[1]}        
-        </div>
-        <div onClick={()=>{updateBoardMap(2);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="2">
-            {boardMapping[2]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(3);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="3">
-            {boardMapping[3]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(4);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="4">
-            {boardMapping[4]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(5);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="5">
-            {boardMapping[5]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(6);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="6">
-            {boardMapping[6]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(7);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="7">
-            {boardMapping[7]} 
-        </div>
-        <div onClick={()=>{updateBoardMap(8);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="8">
-            {boardMapping[8]} 
+        <div className='text-6xl mt-10'>
+            {score[0]+" - "+score[1]+" - "+score[2]}
         </div>
     </div>
-    <div className='text-6xl'>
-        {score[0]+" - "+score[1]+" - "+score[2]}
-    </div>
-    </>
     
 
   );
