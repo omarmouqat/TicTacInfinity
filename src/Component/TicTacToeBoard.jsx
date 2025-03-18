@@ -16,7 +16,8 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
     };
     useEffect(()=>{
         if (getMode()==3) {
-            if(boardFirstMoves.length>4){
+            if(checkWin().length===0){
+                if(boardFirstMoves.length>4){
                 document.getElementById(""+boardFirstMoves[0]).style.backgroundColor = "#ff7272";
             }
             if (boardFirstMoves.length>5) {
@@ -29,6 +30,8 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
                 newBoardFirstMoves.shift();
                 setBoardFirstMoves(newBoardFirstMoves);
             }
+            }
+            
         }
     }, [boardFirstMoves]);
 
