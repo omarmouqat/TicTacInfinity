@@ -71,7 +71,7 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
                 document.getElementById("" + index).style.color = "#00c951";
             });
             setTimeout(() => {
-                if (currentPlayer==-1) {
+                if (currentPlayer==1) {
                     newScore[0]++;
                     setScore(newScore);
                 }else{
