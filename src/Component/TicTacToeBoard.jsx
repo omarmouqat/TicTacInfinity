@@ -90,25 +90,28 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
 
     const updateBoardMap = (id)=>{
         const newboard = [...boardMapping];
-        if (boardMapping[id]==="") {
-            if (currentPlayer==1) {
-                if(getMode()!==1){
-                    newboard[id] = "X";
+        if(checkWin().length===0){
+            if (boardMapping[id]==="") {
+                if (currentPlayer==1) {
+                    if(getMode()!==1){
+                        newboard[id] = "X";
+                        setBoardMapping(newboard);
+                    }
+                    
+                }else if (currentPlayer==-1) {
+                    newboard[id] = "O";
                     setBoardMapping(newboard);
                 }
+                const newBoardFirstMoves = [...boardFirstMoves];
+                newBoardFirstMoves.push(id);
+                setBoardFirstMoves(newBoardFirstMoves);
+                setCurrentPlayer(currentPlayer * -1);
                 
-            }else if (currentPlayer==-1) {
-                newboard[id] = "O";
-                setBoardMapping(newboard);
+            }else{
+                console.log("it filled");
             }
-            const newBoardFirstMoves = [...boardFirstMoves];
-            newBoardFirstMoves.push(id);
-            setBoardFirstMoves(newBoardFirstMoves);
-            setCurrentPlayer(currentPlayer * -1);
-            
-        }else{
-            console.log("it filled");
         }
+        
         
         
     };
