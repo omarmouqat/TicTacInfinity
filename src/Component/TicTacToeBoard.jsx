@@ -17,7 +17,7 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
     useEffect(()=>{
         if (getMode()==3) {
             if(boardFirstMoves.length>4){
-                document.getElementById(""+boardFirstMoves[0]).style.backgroundColor = "red";
+                document.getElementById(""+boardFirstMoves[0]).style.backgroundColor = "#ff7272";
             }
             if (boardFirstMoves.length>5) {
                 const newboard = [...boardMapping];
@@ -56,29 +56,31 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
         const winner = checkWin();
         const newScore = [...score];
         if (winner.length === 1){
-            newScore[1]+=1;
-            setScore(newScore);
-            setBoardMapping(["", "", "", "", "", "", "", "", ""]);
-            resetColors();
+            setTimeout(() => {
+                newScore[1]+=1;
+                setScore(newScore);
+                setBoardMapping(["", "", "", "", "", "", "", "", ""]);
+                resetColors();
+              }, 1500);
+            
         }else if (winner.length > 0) {
             winner.forEach(index => {
                 document.getElementById("" + index).style.color = "#00c951";
             });
-
-            if (currentPlayer==-1) {
-                newScore[0]++;
-                setScore(newScore);
-            }else{
-                newScore[2]++;
-                setScore(newScore);
-            }
             setTimeout(() => {
-                console.log("Delayed for 1 second.");
-              }, "1000");
-            resetColors();
-            setBoardFirstMoves([]);
-            setBoardMapping(["", "", "", "", "", "", "", "", ""]);
-            resetColors();
+                if (currentPlayer==-1) {
+                    newScore[0]++;
+                    setScore(newScore);
+                }else{
+                    newScore[2]++;
+                    setScore(newScore);
+                }
+                resetColors();
+                setBoardFirstMoves([]);
+                setBoardMapping(["", "", "", "", "", "", "", "", ""]);
+                resetColors();
+              }, 1500);
+            
         }
         
     }, [boardMapping]);
@@ -139,34 +141,34 @@ const TicTacToeBoard = ({getMode, aiNextMove}) => {
     
 
   return (
-    <div className='flex flex-col justify-center items-center'>
-        <h1 className='text-4xl my-10'>Player 1</h1>
-        <div className='size-100 grid grid-cols-3 grid-rows-3 gap-1 font-thin bg-black'>
-            <div onClick={()=>{updateBoardMap(0);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="0">
+    <div className='flex flex-col justify-center items-center w-full h-dvh overflow-hidden'>
+        <h1 className='text-4xl my-10'>Player {(getMode()!==1)?((currentPlayer==-1)?"1":"2"):"1"}</h1>
+        <div className='sm:size-100 mx-10dvw h-[80vw] w-[80vw] grid grid-cols-3 grid-rows-3 font-thin'>
+            <div onClick={()=>{updateBoardMap(0);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-r-4 border-b-4' id="0">
                 {boardMapping[0]}
             </div>
-            <div onClick={()=>{updateBoardMap(1);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="1">
+            <div onClick={()=>{updateBoardMap(1);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-x-4 border-b-4' id="1">
                 {boardMapping[1]}        
             </div>
-            <div onClick={()=>{updateBoardMap(2);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="2">
+            <div onClick={()=>{updateBoardMap(2);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-l-4 border-b-4' id="2">
                 {boardMapping[2]} 
             </div>
-            <div onClick={()=>{updateBoardMap(3);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="3">
+            <div onClick={()=>{updateBoardMap(3);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-y-4 border-r-4' id="3">
                 {boardMapping[3]} 
             </div>
-            <div onClick={()=>{updateBoardMap(4);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="4">
+            <div onClick={()=>{updateBoardMap(4);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-4' id="4">
                 {boardMapping[4]} 
             </div>
-            <div onClick={()=>{updateBoardMap(5);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="5">
+            <div onClick={()=>{updateBoardMap(5);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-y-4 border-l-4' id="5">
                 {boardMapping[5]} 
             </div>
-            <div onClick={()=>{updateBoardMap(6);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="6">
+            <div onClick={()=>{updateBoardMap(6);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-t-4 border-r-4' id="6">
                 {boardMapping[6]} 
             </div>
-            <div onClick={()=>{updateBoardMap(7);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="7">
+            <div onClick={()=>{updateBoardMap(7);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-t-4 border-x-4' id="7">
                 {boardMapping[7]} 
             </div>
-            <div onClick={()=>{updateBoardMap(8);}} className='bg-white flex flex-row justify-center items-center text-8xl' id="8">
+            <div onClick={()=>{updateBoardMap(8);}} className='bg-white flex flex-row justify-center items-center text-8xl border-black border-t-4 border-l-4' id="8">
                 {boardMapping[8]} 
             </div>
         </div>
